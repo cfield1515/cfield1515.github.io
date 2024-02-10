@@ -1,4 +1,8 @@
-// Same JavaScript as before
+const users = [
+  { username: "admin", password: "admin123", role: "admin" },
+  { username: "teacher", password: "teacher123", role: "teacher" },
+  { username: "student", password: "student123", role: "student" }
+];
 
 document.getElementById("login-form").addEventListener("submit", function(event) {
   event.preventDefault();
@@ -26,4 +30,40 @@ function login(user) {
   }
 }
 
-// Same JavaScript as before
+function showDashboard() {
+  document.getElementById("log").classList.add("active");
+}
+
+document.getElementById("incident-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const studentName = document.getElementById("student-name").value;
+  const staffInvolved = document.getElementById("staff-involved").value;
+  const description = document.getElementById("incident-description").value;
+  const severity = document.getElementById("severity").value;
+  logIncident(studentName, staffInvolved, description, severity);
+  clearFormFields();
+});
+
+function logIncident(studentName, staffInvolved, description, severity) {
+  const incident = {
+    studentName,
+    staffInvolved,
+    description,
+    severity,
+    timestamp: new Date().toLocaleString()
+  };
+  displayIncident(incident);
+}
+
+function clearFormFields() {
+  document.getElementById("student-name").value = "";
+  document.getElementById("staff-involved").value = "";
+  document.getElementById("incident-description").value = "";
+  document.getElementById("severity").value = "";
+}
+
+function displayIncident(incident) {
+  const incidentItem = document.createElement("li");
+  incidentItem.textContent = `${incident.timestamp}: ${incident.description}`;
+  document.getElementById("incident-items").appendChild(incidentItem);
+}
