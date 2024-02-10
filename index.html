@@ -55,7 +55,34 @@
             <button class="btn btn-primary" onclick="cpomsGui.validateLogin()">Login</button>
         </div>
         <div id="mainMenu" style="display: none;">
-            <!-- Main menu content will be displayed here -->
+            <div id="addStudentPage" style="display: none;">
+                <h2>Create Student</h2>
+                <!-- Form to create new student -->
+            </div>
+            <div id="viewStudentsPage" style="display: none;">
+                <h2>Student Info</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date of Birth</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- Student details will be displayed here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="logIncidentPage" style="display: none;">
+                <h2>Log Incident</h2>
+                <!-- Form to log incident -->
+            </div>
+            <div id="viewIncidentsPage" style="display: none;">
+                <h2>View Incidents</h2>
+                <!-- Table to display incidents -->
+            </div>
         </div>
     </div>
 
