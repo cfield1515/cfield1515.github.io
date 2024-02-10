@@ -17,8 +17,17 @@ class CPOMSGUI {
     validateLogin() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        if (this.cpoms.login(username, password)) {
-            this.showMainMenu();
+        if (this.cpoms.users[username] && this.cpoms.users[username] === password) {
+            if (username === 'admin') {
+                const adminPassword = prompt('Enter admin password:');
+                if (adminPassword === 'adminpass') {
+                    this.showAdminMenu();
+                } else {
+                    alert('Invalid admin password');
+                }
+            } else {
+                this.showMainMenu();
+            }
         } else {
             alert('Invalid username or password');
         }
@@ -27,11 +36,21 @@ class CPOMSGUI {
     showMainMenu() {
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('mainMenu').style.display = 'block';
+        this.showHeader();
         this.showViewStudentsPage();
     }
 
-    showViewStudentsPage() {
+    showAdminMenu() {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('adminMenu').style.display = 'block';
+        this.showHeader();
+    }
+
+    showHeader() {
         document.getElementById('header').style.display = 'block';
+    }
+
+    showViewStudentsPage() {
         document.getElementById('viewStudentsPage').style.display = 'block';
         document.getElementById('addStudentPage').style.display = 'none';
         document.getElementById('logIncidentPage').style.display = 'none';
@@ -40,7 +59,6 @@ class CPOMSGUI {
     }
 
     showAddStudentPage() {
-        document.getElementById('header').style.display = 'block';
         document.getElementById('addStudentPage').style.display = 'block';
         document.getElementById('viewStudentsPage').style.display = 'none';
         document.getElementById('logIncidentPage').style.display = 'none';
@@ -48,7 +66,6 @@ class CPOMSGUI {
     }
 
     showLogIncidentPage() {
-        document.getElementById('header').style.display = 'block';
         document.getElementById('logIncidentPage').style.display = 'block';
         document.getElementById('viewStudentsPage').style.display = 'none';
         document.getElementById('addStudentPage').style.display = 'none';
@@ -56,7 +73,6 @@ class CPOMSGUI {
     }
 
     showViewIncidentsPage() {
-        document.getElementById('header').style.display = 'block';
         document.getElementById('viewIncidentsPage').style.display = 'block';
         document.getElementById('viewStudentsPage').style.display = 'none';
         document.getElementById('addStudentPage').style.display = 'none';
@@ -131,6 +147,13 @@ class CPOMSGUI {
 
     editIncident(incidentId) {
         // Implement edit incident functionality here
+    }
+
+    logout() {
+        document.getElementById('loginPage').style.display = 'block';
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('adminMenu').style.display = 'none';
+        document.getElementById('header').style.display = 'none';
     }
 }
 
