@@ -1,46 +1,29 @@
 // Same JavaScript as before
 
-document.getElementById("incident-form").addEventListener("submit", function(event) {
+document.getElementById("login-form").addEventListener("submit", function(event) {
   event.preventDefault();
-  const studentName = document.getElementById("student-name").value;
-  const staffInvolved = document.getElementById("staff-involved").value;
-  const description = document.getElementById("incident-description").value;
-  const severity = document.getElementById("severity").value;
-  logIncident(studentName, staffInvolved, description, severity);
-  clearFormFields();
+  
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const user = users.find(user => user.username === username && user.password === password);
+
+  if (user) {
+    document.getElementById("error-message").textContent = "";
+    login(user);
+  } else {
+    document.getElementById("error-message").textContent = "Invalid username or password";
+  }
 });
 
-function logIncident(studentName, staffInvolved, description, severity) {
-  const incident = {
-    studentName,
-    staffInvolved,
-    description,
-    severity,
-    timestamp: new Date().toLocaleString()
-  };
-  incidentList.push(incident);
-  displayIncident(incident);
-  updateIncidentCount();
+function login(user) {
+  if (user.role === "admin" || user.role === "teacher") {
+    document.getElementById("dashboard").classList.remove("hidden");
+    document.getElementById("login-form").classList.add("hidden");
+    showDashboard();
+  } else {
+    alert("You do not have permission to access the dashboard.");
+  }
 }
 
-function clearFormFields() {
-  document.getElementById("student-name").value = "";
-  document.getElementById("staff-involved").value = "";
-  document.getElementById("incident-description").value = "";
-  document.getElementById("severity").value = "";
-}
-
-// Function to open specific tab
-function openTab(evt, tabName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
+// Same JavaScript as before
