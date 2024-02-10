@@ -18,7 +18,16 @@ class CPOMSGUI {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         if (this.cpoms.users[username] && this.cpoms.users[username] === password) {
-            this.showMainMenu();
+            if (username === 'admin') {
+                const adminPassword = prompt('Enter admin password:');
+                if (adminPassword === 'adminpass') {
+                    this.showMainMenu();
+                } else {
+                    alert('Invalid admin password');
+                }
+            } else {
+                this.showMainMenu();
+            }
         } else {
             alert('Invalid username or password');
         }
