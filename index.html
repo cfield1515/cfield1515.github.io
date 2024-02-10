@@ -22,6 +22,7 @@
         #header {
             text-align: center;
             margin-bottom: 20px;
+            display: none;
         }
         #header a {
             margin-right: 20px;
@@ -57,7 +58,19 @@
         <div id="mainMenu" style="display: none;">
             <div id="addStudentPage" style="display: none;">
                 <h2>Create Student</h2>
-                <!-- Form to create new student -->
+                <div class="mb-3">
+                    <label for="studentName" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="studentName">
+                </div>
+                <div class="mb-3">
+                    <label for="studentDOB" class="form-label">Date of Birth:</label>
+                    <input type="date" class="form-control" id="studentDOB">
+                </div>
+                <div class="mb-3">
+                    <label for="studentYear" class="form-label">Year:</label>
+                    <input type="text" class="form-control" id="studentYear">
+                </div>
+                <button class="btn btn-primary" onclick="cpomsGui.addStudent()">Add Student</button>
             </div>
             <div id="viewStudentsPage" style="display: none;">
                 <h2>Student Info</h2>
@@ -77,11 +90,40 @@
             </div>
             <div id="logIncidentPage" style="display: none;">
                 <h2>Log Incident</h2>
-                <!-- Form to log incident -->
+                <div class="mb-3">
+                    <label for="incidentStudentId" class="form-label">Student ID:</label>
+                    <input type="text" class="form-control" id="incidentStudentId">
+                </div>
+                <div class="mb-3">
+                    <label for="otherStudents" class="form-label">Other Students Involved (comma-separated):</label>
+                    <input type="text" class="form-control" id="otherStudents">
+                </div>
+                <div class="mb-3">
+                    <label for="incidentReason" class="form-label">Reason:</label>
+                    <input type="text" class="form-control" id="incidentReason">
+                </div>
+                <div class="mb-3">
+                    <label for="incidentSeverity" class="form-label">Severity:</label>
+                    <input type="text" class="form-control" id="incidentSeverity">
+                </div>
+                <button class="btn btn-primary" onclick="cpomsGui.logIncident()">Log Incident</button>
             </div>
             <div id="viewIncidentsPage" style="display: none;">
                 <h2>View Incidents</h2>
-                <!-- Table to display incidents -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Other Students</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Severity</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loggedIncidentsTableBody">
+                        <!-- Logged incidents will be displayed here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
