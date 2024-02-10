@@ -14,10 +14,11 @@ class CPOMSGUI {
         this.cpoms = new CPOMS();
     }
 
-    validateLogin() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        if (this.cpoms.users[username] && this.cpoms.users[username] === password) {
+   validateLogin() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if (this.cpoms.users[username]) {
+        if (this.cpoms.users[username] === password) {
             if (username === 'admin') {
                 const adminPassword = prompt('Enter admin password:');
                 if (adminPassword === 'adminpass') {
@@ -29,9 +30,13 @@ class CPOMSGUI {
                 this.showMainMenu();
             }
         } else {
-            alert('Invalid username or password');
+            alert('Invalid password');
         }
+    } else {
+        alert('Invalid username');
     }
+}
+
 
     showMainMenu() {
         document.getElementById('loginPage').style.display = 'none';
