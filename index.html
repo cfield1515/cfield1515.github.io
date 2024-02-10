@@ -7,37 +7,49 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Safeguarding System</h1>
-    <div id="incident-count"></div>
-  </header>
-
-  <div class="tabs">
-    <button class="tablinks" onclick="openTab(event, 'log')">Log Incident</button>
-    <button class="tablinks" onclick="openTab(event, 'view')">View Incidents</button>
-  </div>
-
-  <div id="log" class="tabcontent">
-    <h2>Log Incident</h2>
-    <form id="incident-form">
-      <input type="text" id="student-name" placeholder="Student's Name" required>
-      <input type="text" id="staff-involved" placeholder="Staff Involved" required>
-      <textarea id="incident-description" placeholder="What happened/Reason" required></textarea>
-      <label for="severity">Severity:</label>
-      <select id="severity" required>
-        <option value="">Select Severity</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-      <button type="submit">Log Incident</button>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
     </form>
+    <p id="error-message" class="error-message"></p>
   </div>
 
-  <div id="view" class="tabcontent">
-    <h2>View Incidents</h2>
-    <div id="incident-list">
-      <ul id="incident-items"></ul>
+  <div id="dashboard" class="hidden">
+    <header>
+      <h1>Safeguarding System</h1>
+      <div id="incident-count"></div>
+    </header>
+
+    <div class="tabs">
+      <button class="tablinks active" onclick="openTab(event, 'log')">Log Incident</button>
+      <button class="tablinks" onclick="openTab(event, 'view')">View Incidents</button>
+    </div>
+
+    <div id="log" class="tabcontent">
+      <h2>Log Incident</h2>
+      <form id="incident-form">
+        <input type="text" id="student-name" placeholder="Student's Name" required>
+        <input type="text" id="staff-involved" placeholder="Staff Involved" required>
+        <textarea id="incident-description" placeholder="What happened/Reason" required></textarea>
+        <label for="severity">Severity:</label>
+        <select id="severity" required>
+          <option value="">Select Severity</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <button type="submit">Log Incident</button>
+      </form>
+    </div>
+
+    <div id="view" class="tabcontent">
+      <h2>View Incidents</h2>
+      <div id="incident-list">
+        <ul id="incident-items"></ul>
+      </div>
     </div>
   </div>
 
