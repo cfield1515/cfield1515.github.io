@@ -80,8 +80,8 @@ class CPOMSGUI {
     }
 
     showViewStudentsPage() {
-        document.getElementById('addStudentPage').style.display = 'none';
         document.getElementById('viewStudentsPage').style.display = 'block';
+        document.getElementById('addStudentPage').style.display = 'none';
         document.getElementById('logIncidentPage').style.display = 'none';
         document.getElementById('viewIncidentsPage').style.display = 'none';
         this.populateStudentsTable();
@@ -95,17 +95,17 @@ class CPOMSGUI {
     }
 
     showLogIncidentPage() {
-        document.getElementById('addStudentPage').style.display = 'none';
-        document.getElementById('viewStudentsPage').style.display = 'none';
         document.getElementById('logIncidentPage').style.display = 'block';
+        document.getElementById('viewStudentsPage').style.display = 'none';
+        document.getElementById('addStudentPage').style.display = 'none';
         document.getElementById('viewIncidentsPage').style.display = 'none';
     }
 
     showViewIncidentsPage() {
-        document.getElementById('addStudentPage').style.display = 'none';
-        document.getElementById('viewStudentsPage').style.display = 'none';
-        document.getElementById('logIncidentPage').style.display = 'none';
         document.getElementById('viewIncidentsPage').style.display = 'block';
+        document.getElementById('viewStudentsPage').style.display = 'none';
+        document.getElementById('addStudentPage').style.display = 'none';
+        document.getElementById('logIncidentPage').style.display = 'none';
     }
 
     populateStudentsTable() {
