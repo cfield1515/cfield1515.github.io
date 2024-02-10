@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPOMS - Safeguarding and Wellbeing Solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loginPage">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <button class="btn btn-primary" onclick="cpomsGui.validateLogin()">Login</button>
+        </div>
+        <div id="mainMenu" style="display: none;">
+            <div id="addStudentPage">
+                <div class="mb-3">
+                    <label for="newStudentName" class="form-label">Student Name:</label>
+                    <input type="text" class="form-control" id="newStudentName">
+                </div>
+                <div class="mb-3">
+                    <label for="newStudentDob" class="form-label">Date of Birth:</label>
+                    <input type="text" class="form-control" id="newStudentDob">
+                </div>
+                <div class="mb-3">
+                    <label for="newStudentYear" class="form-label">Year:</label>
+                    <input type="text" class="form-control" id="newStudentYear">
+                </div>
+                <button class="btn btn-primary" onclick="cpomsGui.submitStudent()">Submit</button>
+            </div>
+            <div id="viewStudentsPage" style="display: none;">
+                <div class="mb-3">
+                    <label for="searchStudent" class="form-label">Search Student:</label>
+                    <input type="text" class="form-control" id="searchStudent" oninput="cpomsGui.searchStudents()">
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date of Birth</th>
+                            <th scope="col">Year</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- Student details will be displayed here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="viewIncidentsPage" style="display: none;">
+                <textarea class="form-control" id="incidentsTextArea" rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code goes here
+        class CPOMS {
+            constructor() {
+                this.users = {'admin': 'password'};
+                this.students = {};
+                this.incidents = [];
+            }
+
+            registerUser(username, password) {
+                this.users[username] = password;
+            }
+
+            login(username, password) {
+                return this.users[username] === password;
+            }
+
+            addStudent(name, dob, year) {
+                const studentId = Object.keys(this.students).length + 1;
+                this.students[studentId] = { name, dob, year };
+            }
+
+            deleteStudent(studentId) {
+                if (studentId in this.students) {
+                    delete this.students[studentId];
+                    return true;
+                }
+                return false;
+            }
+
+            reportIncident(studentId, otherStudents, reason, severity) {
+                const incident = { studentId, otherStudents, reason, severity };
+                this.incidents.push(incident);
+            }
+
+            getStudentIncidents(studentId) {
+                const incidents = this.incidents.filter(incident => incident.studentId === studentId);
+                for (const incident of this.incidents) {
+                    if (incident.otherStudents.includes(studentId)) {
+                        incidents.push(incident);
+                    }
+                }
+                return incidents;
+            }
+
+            updateStudentData(studentId, newData) {
+                if (studentId in this.students) {
+                    this.students[studentId] = newData;
+                    return true;
+                }
+                return false;
+            }
+
+            deleteUsername(username) {
+                if (username in this.users) {
+                    delete this.users[username];
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        class CPOMSGUI {
+            constructor() {
+                this.cpoms = new CPOMS();
+            }
+
+            validateLogin() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                if (this.cpoms.login(username, password)) {
+                    this.showMainMenu();
+                } else {
+                    alert('Invalid username or password');
+                }
+            }
+
+            showMainMenu() {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'block';
+                this.populateStudentsTable();
+            }
+
+            submitStudent() {
+                const name = document.getElementById('newStudentName').value;
+                const dob = document.getElementById('newStudentDob').value;
+                const year = document.getElementById('newStudentYear').value;
+                if (name && dob && year) {
+                    this.cpoms.addStudent(name, dob, year);
+                    alert('New student added successfully.');
+                    document.getElementById('newStudentName').value = '';
+                    document.getElementById('newStudentDob').value = '';
+                    document.getElementById('newStudentYear').value = '';
+                    this.populateStudentsTable();
+                } else {
+                    alert('Please enter all student details.');
+                }
+            }
+
+            populateStudentsTable() {
+                const studentsTableBody = document.getElementById('studentsTableBody');
+                studentsTableBody.innerHTML = '';
+                for (const [studentId, studentInfo] of Object.entries(this.cpoms.students)) {
+                    const row = `
+                        <tr>
+                            <td>${studentInfo.name}</td>
+                            <td>${studentInfo.dob}</td>
+                            <td>${studentInfo.year}</td>
+                        </tr>
+                    `;
+                    studentsTableBody.innerHTML += row;
+                }
+            }
+
+            searchStudents() {
+                const query = document.getElementById('searchStudent').value.toLowerCase();
+                const studentsTableBody = document.getElementById('studentsTableBody');
+                studentsTableBody.innerHTML = '';
+                for (const [studentId, studentInfo] of Object.entries(this.cpoms.students)) {
+                    if (studentInfo.name.toLowerCase().includes(query)) {
+                        const row = `
+                            <tr>
+                                <td>${studentInfo.name}</td>
+                                <td>${studentInfo.dob}</td>
+                                <td>${studentInfo.year}</td>
+                            </tr>
+                        `;
+                        studentsTableBody.innerHTML += row;
+                    }
+                }
+            }
+
+            viewIncidents(studentId) {
+                const incidents = this.cpoms.getStudentIncidents(studentId);
+                let formatted = '';
+                for (const incident of incidents) {
+                    const studentName = this.cpoms.students[incident.studentId].name;
+                    formatted += `Student Name: ${studentName}\nReason: ${incident.reason}\nSeverity: ${incident.severity}\n\n`;
+                }
+                document.getElementById('incidentsTextArea').value = formatted;
+                document.getElementById('viewIncidentsPage').style.display = 'block';
+            }
+        }
+
+        const cpomsGui = new CPOMSGUI();
+    </script>
+</body>
+</html>
