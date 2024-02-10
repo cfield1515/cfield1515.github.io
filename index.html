@@ -5,9 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPOMS - Safeguarding and Wellbeing Solution</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #header a {
+            margin-right: 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+        }
+        #header a:hover {
+            color: #0069d9;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <h1>CPOMS - Safeguarding and Wellbeing Solution</h1>
+        <div id="header">
+            <a href="#" onclick="cpomsGui.showViewStudentsPage()">Student Info</a>
+            <a href="#" onclick="cpomsGui.showAddStudentPage()">Create Student</a>
+            <a href="#" onclick="cpomsGui.showLogIncidentPage()">Log Incident</a>
+            <a href="#" onclick="cpomsGui.showViewIncidentsPage()">View Incidents</a>
+        </div>
         <div id="loginPage">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
@@ -20,43 +55,7 @@
             <button class="btn btn-primary" onclick="cpomsGui.validateLogin()">Login</button>
         </div>
         <div id="mainMenu" style="display: none;">
-            <div id="addStudentPage">
-                <div class="mb-3">
-                    <label for="newStudentName" class="form-label">Student Name:</label>
-                    <input type="text" class="form-control" id="newStudentName">
-                </div>
-                <div class="mb-3">
-                    <label for="newStudentDob" class="form-label">Date of Birth:</label>
-                    <input type="text" class="form-control" id="newStudentDob">
-                </div>
-                <div class="mb-3">
-                    <label for="newStudentYear" class="form-label">Year:</label>
-                    <input type="text" class="form-control" id="newStudentYear">
-                </div>
-                <button class="btn btn-primary" onclick="cpomsGui.submitStudent()">Submit</button>
-            </div>
-            <div id="viewStudentsPage" style="display: none;">
-                <div class="mb-3">
-                    <label for="searchStudent" class="form-label">Search Student:</label>
-                    <input type="text" class="form-control" id="searchStudent" oninput="cpomsGui.searchStudents()">
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Date of Birth</th>
-                            <th scope="col">Year</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentsTableBody">
-                        <!-- Student details will be displayed here -->
-                    </tbody>
-                </table>
-            </div>
-            <div id="viewIncidentsPage" style="display: none;">
-                <textarea class="form-control" id="incidentsTextArea" rows="10"></textarea>
-            </div>
+            <!-- Main menu content will be displayed here -->
         </div>
     </div>
 
