@@ -18,16 +18,7 @@ class CPOMSGUI {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         if (this.cpoms.users[username] && this.cpoms.users[username] === password) {
-            if (username === 'admin') {
-                const adminPassword = prompt('Enter admin password:');
-                if (adminPassword === 'adminpass') {
-                    this.showAdminMenu();
-                } else {
-                    alert('Invalid admin password');
-                }
-            } else {
-                this.showMainMenu();
-            }
+            this.showMainMenu();
         } else {
             alert('Invalid username or password');
         }
@@ -38,12 +29,6 @@ class CPOMSGUI {
         document.getElementById('mainMenu').style.display = 'block';
         this.showHeader();
         this.showViewStudentsPage();
-    }
-
-    showAdminMenu() {
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('adminMenu').style.display = 'block';
-        this.showHeader();
     }
 
     showHeader() {
@@ -152,7 +137,6 @@ class CPOMSGUI {
     logout() {
         document.getElementById('loginPage').style.display = 'block';
         document.getElementById('mainMenu').style.display = 'none';
-        document.getElementById('adminMenu').style.display = 'none';
         document.getElementById('header').style.display = 'none';
     }
 }
