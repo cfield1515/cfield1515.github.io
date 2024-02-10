@@ -111,6 +111,25 @@ class CPOMSGUI {
         }
     }
 
+    searchStudents() {
+        const query = document.getElementById('searchStudent').value.toLowerCase();
+        const studentsTableBody = document.getElementById('studentsTableBody');
+        studentsTableBody.innerHTML = '';
+        for (const [studentId, studentInfo] of Object.entries(this.cpoms.students)) {
+            if (studentInfo.name.toLowerCase().includes(query)) {
+                const row = `
+                    <tr>
+                        <td>${studentInfo.name}</td>
+                        <td>${studentInfo.dob}</td>
+                        <td>${studentInfo.year}</td>
+                        <td><button onclick="cpomsGui.viewIncidents(${studentId})">View Incidents</button></td>
+                    </tr>
+                `;
+                studentsTableBody.innerHTML += row;
+            }
+        }
+    }
+
     viewIncidents(studentId) {
         const incidents = this.cpoms.getStudentIncidents(studentId);
         let formatted = '';
