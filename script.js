@@ -76,23 +76,36 @@ class CPOMSGUI {
     showMainMenu() {
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('mainMenu').style.display = 'block';
+        this.showViewStudentsPage();
+    }
+
+    showViewStudentsPage() {
+        document.getElementById('addStudentPage').style.display = 'none';
+        document.getElementById('viewStudentsPage').style.display = 'block';
+        document.getElementById('logIncidentPage').style.display = 'none';
+        document.getElementById('viewIncidentsPage').style.display = 'none';
         this.populateStudentsTable();
     }
 
-    submitStudent() {
-        const name = document.getElementById('newStudentName').value;
-        const dob = document.getElementById('newStudentDob').value;
-        const year = document.getElementById('newStudentYear').value;
-        if (name && dob && year) {
-            this.cpoms.addStudent(name, dob, year);
-            alert('New student added successfully.');
-            document.getElementById('newStudentName').value = '';
-            document.getElementById('newStudentDob').value = '';
-            document.getElementById('newStudentYear').value = '';
-            this.populateStudentsTable();
-        } else {
-            alert('Please enter all student details.');
-        }
+    showAddStudentPage() {
+        document.getElementById('addStudentPage').style.display = 'block';
+        document.getElementById('viewStudentsPage').style.display = 'none';
+        document.getElementById('logIncidentPage').style.display = 'none';
+        document.getElementById('viewIncidentsPage').style.display = 'none';
+    }
+
+    showLogIncidentPage() {
+        document.getElementById('addStudentPage').style.display = 'none';
+        document.getElementById('viewStudentsPage').style.display = 'none';
+        document.getElementById('logIncidentPage').style.display = 'block';
+        document.getElementById('viewIncidentsPage').style.display = 'none';
+    }
+
+    showViewIncidentsPage() {
+        document.getElementById('addStudentPage').style.display = 'none';
+        document.getElementById('viewStudentsPage').style.display = 'none';
+        document.getElementById('logIncidentPage').style.display = 'none';
+        document.getElementById('viewIncidentsPage').style.display = 'block';
     }
 
     populateStudentsTable() {
@@ -108,25 +121,6 @@ class CPOMSGUI {
                 </tr>
             `;
             studentsTableBody.innerHTML += row;
-        }
-    }
-
-    searchStudents() {
-        const query = document.getElementById('searchStudent').value.toLowerCase();
-        const studentsTableBody = document.getElementById('studentsTableBody');
-        studentsTableBody.innerHTML = '';
-        for (const [studentId, studentInfo] of Object.entries(this.cpoms.students)) {
-            if (studentInfo.name.toLowerCase().includes(query)) {
-                const row = `
-                    <tr>
-                        <td>${studentInfo.name}</td>
-                        <td>${studentInfo.dob}</td>
-                        <td>${studentInfo.year}</td>
-                        <td><button onclick="cpomsGui.viewIncidents(${studentId})">View Incidents</button></td>
-                    </tr>
-                `;
-                studentsTableBody.innerHTML += row;
-            }
         }
     }
 
