@@ -14,29 +14,19 @@ class CPOMSGUI {
         this.cpoms = new CPOMS();
     }
 
-   validateLogin() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    if (this.cpoms.users[username]) {
-        if (this.cpoms.users[username] === password) {
-            if (username === 'admin') {
-                const adminPassword = prompt('Enter admin password:');
-                if (adminPassword === 'adminpass') {
-                    this.showMainMenu();
-                } else {
-                    alert('Invalid admin password');
-                }
-            } else {
+    validateLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (this.cpoms.users[username] && this.cpoms.users[username] === password) {
+            if (username !== 'admin') {
                 this.showMainMenu();
+            } else {
+                alert('Please log in as admin using the admin page.');
             }
         } else {
-            alert('Invalid password');
+            alert('Invalid username or password');
         }
-    } else {
-        alert('Invalid username');
     }
-}
-
 
     showMainMenu() {
         document.getElementById('loginPage').style.display = 'none';
